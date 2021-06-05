@@ -1,0 +1,48 @@
+<?xml version="1.0" ?>
+<robot name="create_2" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:include filename="$(find tfg_roomba)/urdf/create_base.urdf.xacro" />
+  <xacro:include filename="$(find tfg_roomba)/urdf/create_2_gazebo.urdf.xacro" />
+
+  <xacro:create_base wheel_separation="0.235" base_diameter="0.3485">
+    <mesh filename="package://ca_description/meshes/create_2.dae" />
+  </xacro:create_base>
+
+
+
+
+
+  <xacro:include filename="$(find tfg_roomba)/urdf/materials.xacro" />
+
+  <xacro:property name="base_height" value="0.083"/>
+  <xacro:property name="lidar_radius" value="0.038"/>
+  <xacro:property name="lidar_heigth" value="0.041"/>
+  <xacro:property name="lidar_offset_y" value="0.105"/>
+
+  <joint name="lidar_joint" type="fixed">
+    <origin xyz="0 ${lidar_offset_y} ${base_height/2+lidar_heigth+0.01}" rpy="0 -0.02 3.141592"/>
+    <parent link="base_link"/>
+    <child link="lidar"/>
+  </joint>
+
+  <link name="lidar">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+               iyy="0.0001" iyz="0.0" izz="0.0001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="${lidar_radius}" length="${lidar_heigth}"/>
+      </geometry>
+      <material name="purple"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="${lidar_radius}" length="${lidar_heigth}"/>
+      </geometry>
+    </collision>
+  </link>
+</robot>

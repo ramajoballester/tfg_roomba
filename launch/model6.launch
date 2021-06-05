@@ -1,0 +1,32 @@
+<launch>
+
+  # Added when we launch create node by hand instead of create_2.launch
+  <param name="robot_description"
+    command="$(find xacro)/xacro '$(find tfg_roomba)/urdf/create_2.urdf.xacro'" />
+
+  #
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen"/>
+
+  <!-- Show in Rviz   -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find tfg_roomba)/config/rviz_remote.rviz"/>
+
+  <!-- <node pkg="map_server" type="map_server" args="$(find tfg_roomba)/map/map.yaml"
+     respawn="true" name="map_server" /> -->
+
+
+    <node name="joystick_publisher" pkg="tfg_roomba" type="ps3_node.py" respawn="true"/>
+    <node name="joystick_to_cmd" pkg="tfg_roomba" type="roomba_cmd.py"/>
+
+    <node name="mapping" pkg="gmapping" type="slam_gmapping" args="scan:=/roomba/laser/scan">
+      <param name="base_frame" value="base_link"/>
+      <param name="angularUpdate" value="0.1"/>
+      <param name="delta" value="0.05"/>      # Resolution
+    </node>
+
+
+
+
+
+
+</launch>

@@ -1,0 +1,38 @@
+TebLocalPlannerROS:
+
+  # Robot
+  acc_lim_x: 5.0
+  acc_lim_y: 0.0
+  acc_lim_theta: 5.0
+  max_vel_x: 0.35
+  max_vel_x_backwards: 0.25
+  max_vel_y: 0.0
+  max_vel_theta: 0.6
+  # allow_init_with_backwards_motion: true
+  footprint_model/type: "circular"
+  footprint_model/radius: 0.174
+
+  # HCPlanning
+  max_number_classes: 5     # Default: 5
+
+  # Optimization
+  no_inner_iterations: 2    # Default: 5
+  no_outer_iterations: 2    # Default: 5
+  # weight_acc_lim_x: 0.0
+  # weight_acc_lim_y: 0.0
+  # weight_acc_lim_theta: 0.0
+
+  # Trajectory
+  dt_ref: 0.3
+  dt_hysteresis: 0.1
+  xy_goal_tolerance: 0.3
+  yaw_goal_tolerance: 0.4
+  global_plan_viapoint_sep: 1.0
+
+  # Obstacles
+  min_obstacle_dist: 0.2    # Default: 0.5
+  inflation_dist: 0.6       # Default: 0.6
+  costmap_obstacles_behind_robot_dist: 1.0    # Default: 1.5
+  obstacle_poses_affected: 20                 # Default: 30
+
+  max_global_plan_lookahead_dist: 1.0   # Lower than local map bounds (half width) (?)

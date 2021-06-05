@@ -1,0 +1,27 @@
+<launch>
+
+
+
+  <node pkg="map_server" type="map_server" args="$(find tfg_roomba)/map/home_multi.yaml" respawn="true" name="map_server" >
+    <param name="frame_id" value="map" />
+  </node>
+
+   <!-- Show everything in Rviz   -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find tfg_roomba)/config/multi.rviz"
+    respawn="true"/>
+
+  <include file="$(find tfg_roomba)/launch/one_robot.launch" >
+    <arg name="my_ns" value="create_1" />
+    <arg name="x_init" value="0" />
+    <arg name="y_init" value="0" />
+  </include>
+
+  <include file="$(find tfg_roomba)/launch/one_robot.launch" >
+    <arg name="my_ns" value="create_2" />
+    <arg name="x_init" value="0" />
+    <arg name="y_init" value="0" />
+  </include>
+
+
+
+</launch>

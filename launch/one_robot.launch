@@ -1,0 +1,22 @@
+<launch>
+
+  <arg name="my_ns" default="roomba"/>
+  <arg name="x_init" default="0"/>
+  <arg name="y_init" default="0"/>
+
+
+  <group ns="$(arg my_ns)">
+
+    <!-- Robot URDF / Gazebo description -->
+    <!-- <param name="robot_description" command="$(find xacro)/xacro '$(find tfg_simulations)/urdf/roomba.xacro'" /> -->
+
+
+    <include file="$(find tfg_roomba)/launch/move_base_multi.launch" >
+      <arg name="my_ns" value="$(arg my_ns)" />
+      <arg name="x_init" value="$(arg x_init)" />
+      <arg name="y_init" value="$(arg y_init)" />
+    </include>
+
+  </group>
+
+</launch>

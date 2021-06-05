@@ -1,0 +1,9 @@
+Checkpoint files:
+  m3_move_real: velocity and acceleration tests
+  m4_mapping: gmapping with ps3 controller commands
+  m5_autonomous: autonomous navigation (includes roomba_2dnav .launch call)
+  m6_mapping_real: real gmapping with model1 running on rpi (ps3 commands)
+  m7_autonomous_real: autonomous navigation with real robot (not fully tuned)
+  m8_autonomous_real_teb: autonomous navigation with real robot (TEB) (not fully tuned)
+  m9_autonomous_multi_real: real multi robot autonomous navigation
+  model_c1: autonomous navigation (includes roomba_2dnav .launch call) with create 2 model

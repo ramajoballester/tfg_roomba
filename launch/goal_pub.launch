@@ -1,0 +1,9 @@
+<launch>
+  <arg name="my_ns" />
+
+  <group ns="$(arg my_ns)">
+    # Only namespace argument allowed
+    <node name="$(arg my_ns)/goal_publisher" pkg="tfg_simulations" type="goal_pub.py" output="screen"
+      args="$(arg my_ns)" />
+  </group>
+</launch>

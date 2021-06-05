@@ -1,0 +1,45 @@
+<launch>
+
+  # Select planner (ONLY ONE MUST BE TRUE)
+  <arg name="base_planner" value="false"/>
+  <arg name="teb_planner" value="true"/>
+  <arg name="dwa_planner" value="false"/>
+
+  <!-- Robot URDF / Gazebo description -->
+  <!-- <param name="robot_description"
+    command="$(find xacro)/xacro '$(find tfg_roomba)/urdf/create2.xacro'" /> -->
+
+  <!-- Publishes joints state at certain rate -->
+  <!-- <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+    <param name="use_gui" value="false"/>
+    <param name="rate" value="20"/>
+  </node> -->
+
+  <!-- Publishes all the tf for the robot -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+    respawn="true"/>
+
+  <!-- Spawns a map of the environment -->
+  <node pkg="map_server" type="map_server" args="$(find tfg_roomba)/map/home_map4.yaml"
+    respawn="true" name="map_server" />
+
+  <!-- Import move_base file -->
+  <include file="$(find tfg_roomba)/launch/move_base.launch" if="$(arg base_planner)">
+    <arg name="base_planner" value="true" />
+  </include>
+  <include file="$(find tfg_roomba)/launch/move_base.launch" if="$(arg teb_planner)">
+    <arg name="teb_planner" value="true" />
+  </include>
+  <include file="$(find tfg_roomba)/launch/move_base.launch" if="$(arg dwa_planner)">
+    <arg name="dwa_planner" value="true" />
+  </include>
+
+  <!-- Show everything in Rviz   -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find tfg_simulations)/config/autonomous_base.rviz"
+    respawn="true" if="$(arg base_planner)"/>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find tfg_simulations)/config/autonomous_teb.rviz"
+    respawn="true" if="$(arg teb_planner)"/>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find tfg_simulations)/config/autonomous_dwa.rviz"
+    respawn="true" if="$(arg dwa_planner)"/>
+
+</launch>

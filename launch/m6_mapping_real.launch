@@ -1,0 +1,17 @@
+<launch>
+
+  <!-- Show in Rviz   -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find tfg_roomba)/config/rviz_remote.rviz"/>
+
+  <!-- Joystick commands -->
+  <node name="joystick_publisher" pkg="tfg_roomba" type="ps3_node.py" respawn="true"/>
+  <node name="joystick_to_cmd" pkg="tfg_roomba" type="roomba_cmd.py"/>
+
+  <!-- SLAM node -->
+  <node name="mapping" pkg="gmapping" type="slam_gmapping" args="scan:=/scan">
+    <param name="base_frame" value="base_link"/>
+    <param name="angularUpdate" value="0.1"/>
+    <param name="delta" value="0.05"/>
+  </node>
+
+</launch>
